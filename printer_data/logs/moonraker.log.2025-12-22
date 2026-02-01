@@ -1,0 +1,223 @@
+-------------------- Log Start | Sun Dec 21 23:42:06 2025 --------------------
+platform: Linux-6.12.47+rpt-rpi-v8-aarch64-with-glibc2.36
+data_path: /home/e3v2/printer_data
+is_default_data_path: False
+config_file: /home/e3v2/printer_data/config/moonraker.conf
+backup_config: /home/e3v2/printer_data/config/.moonraker.conf.bkp
+startup_warnings: []
+verbose: False
+debug: False
+asyncio_debug: False
+is_backup_config: False
+is_python_package: True
+instance_uuid: db01dcd83f654e06bbc4ef0c0d2ff6e7
+unix_socket_path: /home/e3v2/printer_data/comms/moonraker.sock
+structured_logging: False
+software_version: v0.9.3-123-g8426f41
+git_branch: master
+git_remote: origin
+git_repo_url: https://github.com/Arksine/moonraker.git
+modified_files: []
+unofficial_components: []
+log_file: /home/e3v2/printer_data/logs/moonraker.log
+python_version: 3.11.2 (main, Apr 28 2025, 14:11:48) [GCC 12.2.0]
+launch_args: /home/e3v2/moonraker-env/bin/python /home/e3v2/moonraker/moonraker/__main__.py
+msgspec_enabled: True
+uvloop_enabled: True
+
+#################### Moonraker Configuration ####################
+
+[server]
+host = 0.0.0.0
+port = 7125
+max_upload_size = 1024
+klippy_uds_address = ~/printer_data/comms/klippy.sock
+
+[file_manager]
+enable_object_processing = False
+
+[authorization]
+cors_domains = 
+	https://my.mainsail.xyz
+	http://my.mainsail.xyz
+	http://*.local
+	http://*.lan
+trusted_clients = 
+	10.0.0.0/8
+	127.0.0.0/8
+	169.254.0.0/16
+	172.16.0.0/12
+	192.168.0.0/16
+	FE80::/10
+	::1/128
+
+[octoprint_compat]
+
+[history]
+
+[announcements]
+subscriptions = 
+	mainsail
+
+[update_manager]
+refresh_interval = 168
+enable_auto_refresh = True
+
+[update_manager mainsail]
+type = web
+channel = stable
+repo = mainsail-crew/mainsail
+path = ~/mainsail
+
+[update_manager mainsail-config]
+type = git_repo
+primary_branch = master
+path = ~/mainsail-config
+origin = https://github.com/mainsail-crew/mainsail-config.git
+managed_services = klipper
+
+[update_manager crowsnest]
+type = git_repo
+path = ~/crowsnest
+origin = https://github.com/mainsail-crew/crowsnest.git
+managed_services = crowsnest
+install_script = tools/pkglist.sh
+
+[update_manager sonar]
+type = git_repo
+path = ~/sonar
+origin = https://github.com/mainsail-crew/sonar.git
+primary_branch = main
+managed_services = sonar
+system_dependencies = resources/system-dependencies.json
+
+#################################################################
+All Configuration Files:
+/home/e3v2/printer_data/config/moonraker.conf
+#################################################################
+Loading Sqlite database provider. Sqlite Version: 3.40.1
+Unsafe Shutdown Count: 10
+
+System Info:
+
+***python***
+  version: (3, 11, 2, 'final', 0)
+  version_string: 3.11.2 (main, Apr 28 2025, 14:11:48) [GCC 12.2.0]
+
+***cpu_info***
+  cpu_count: 4
+  bits: 64bit
+  processor: aarch64
+  cpu_desc: 
+  serial_number: 52e7be9a
+  hardware_desc: 
+  model: Raspberry Pi Zero 2 W Rev 1.0
+  total_memory: 363096
+  memory_units: kB
+
+***sd_info***
+  manufacturer_id: 1b
+  manufacturer: Samsung
+  oem_id: 534d
+  product_name: FD4Q9
+  product_revision: 3.0
+  serial_number: 30d0566f
+  manufacturer_date: 8/2024
+  capacity: 119.4 GiB
+  total_bytes: 128177930240
+
+***distribution***
+  name: Debian GNU/Linux 12 (bookworm)
+  id: debian
+  version: 12
+  version_parts: {'major': '12', 'minor': '', 'build_number': ''}
+  like: 
+  codename: bookworm
+  release_info: {'name': 'MainsailOS', 'version_id': '2.2.2', 'codename': 'bookworm', 'id': 'mainsailos'}
+  kernel_version: 6.12.47+rpt-rpi-v8
+
+***virtualization***
+  virt_type: none
+  virt_identifier: none
+
+***network***
+
+***canbus***
+
+***Allowed Services***
+  klipper_mcu
+  webcamd
+  MoonCord
+  KlipperScreen
+  moonraker-telegram-bot
+  moonraker-obico
+  sonar
+  crowsnest
+  octoeverywhere
+  ratos-configurator
+Found libcamera Python module, version: v0.5.2+99-bfd68f78
+
+Systemd unit moonraker.service:
+unit_name: moonraker.service
+is_default: True
+manager: systemd
+Properties:
+**Requires=['sysinit.target', 'network-online.target', 'system.slice']
+**After=['sysinit.target', 'system.slice', 'network-online.target', 'basic.target', 'systemd-journald.socket', 'klipper.service']
+**SupplementaryGroups=['moonraker-admin']
+**EnvironmentFiles=/home/e3v2/printer_data/systemd/moonraker.env
+**ExecStart=/home/e3v2/moonraker-env/bin/python $MOONRAKER_ARGS
+**WorkingDirectory=
+**FragmentPath=/etc/systemd/system/moonraker.service
+**Description=API Server for Klipper SV1
+**User=e3v2
+
+Systemd unit klipper.service:
+unit_name: klipper.service
+is_default: True
+manager: systemd
+Properties:
+**Requires=['system.slice', 'sysinit.target', '-.mount']
+**After=['-.mount', 'basic.target', 'sysinit.target', 'network-online.target', 'systemd-journald.socket', 'klipper-mcu.service', 'system.slice']
+**SupplementaryGroups=[]
+**EnvironmentFiles=/home/e3v2/printer_data/systemd/klipper.env
+**ExecStart=/home/e3v2/klippy-env/bin/python $KLIPPER_ARGS
+**WorkingDirectory=/home/e3v2/klipper
+**FragmentPath=/etc/systemd/system/klipper.service
+**Description=Klipper 3D Printer Firmware SV1
+**User=e3v2
+Git Repo moonraker: Warnings detected:
+  Repo has untracked source files: ['moonraker/components/timelapse.py']
+Git Repo klipper: No warnings detected
+Git Repo mainsail-config: No warnings detected
+Git Repo crowsnest: No warnings detected
+Git Repo sonar: No warnings detected
+Klipper Version: v0.13.0-375-gba79d72fb
+2025-12-22 00:42:06,172 [authorization.py:_prune_conn_handler()] - Trusted Connection Expired, IP: 192.168.178.14
+2025-12-22 00:48:58,997 [websockets.py:on_close()] - Websocket Closed: ID: 547981783056 Close Code: None, Close Reason: None, Pong Time Elapsed: 19.57
+-------------------- Log Start | Tue Dec 23 13:46:34 2025 --------------------
+platform: Linux-6.12.47+rpt-rpi-v8-aarch64-with-glibc2.36
+data_path: /home/e3v2/printer_data
+is_default_data_path: False
+config_file: /home/e3v2/printer_data/config/moonraker.conf
+backup_config: /home/e3v2/printer_data/config/.moonraker.conf.bkp
+startup_warnings: []
+verbose: False
+debug: False
+asyncio_debug: False
+is_backup_config: False
+is_python_package: True
+instance_uuid: db01dcd83f654e06bbc4ef0c0d2ff6e7
+unix_socket_path: /home/e3v2/printer_data/comms/moonraker.sock
+structured_logging: False
+software_version: v0.9.3-123-g8426f41
+git_branch: master
+git_remote: origin
+git_repo_url: https://github.com/Arksine/moonraker.git
+modified_files: []
+unofficial_components: []
+log_file: /home/e3v2/printer_data/logs/moonraker.log
+python_version: 3.11.2 (main, Apr 28 2025, 14:11:48) [GCC 12.2.0]
+launch_args: /home/e3v2/moonraker-env/bin/python /home/e3v2/moonraker/moonraker/__main__.py
+msgspec_enabled: True
+uvloop_enabled: True
